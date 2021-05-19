@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>clickmaster</title>
+</head>
+<style>
+*{
+	font-size:25px;
+}
+#container {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: yellow;
+}
+#animate {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: red;
+}
+.score {
+  width: 250px;
+  height: 30px;
+  color:  silver; 
+  border: 3px solid #43BD21;
+  float: left;
+}
+</style>
+<body>
+<div id="score" class="score">score:0</div> 
+<div id="Last score" class="score">Last score:0</div> 
+<p><button onclick="myMove()">start</button></p> 
+<div id ="container">
+  <div id ="animate" onclick="myMove()"></div>
+</div>
+
+<script>
+var id = null;
+var x = 0;
+var pos = 0;
+function myMove() {
+  var elem = document.getElementById("animate"); 
+  var score = document.getElementById("score");
+  var Lscore = document.getElementById("Last score"); 
+  
+  x=x+pos; 
+  pos = 0;
+  var harder = 1;
+  clearInterval(id);
+  id = setInterval(frame, 5);
+  function frame() {
+    if (pos+1*harder >= 350) {
+      clearInterval(id);
+	  Lscore.innerHTML = "Last score:"+Math.ceil(x); 
+	  score.innerHTML = "score:"+"0";
+	  x = 0;
+      pos = 0;
+	  elem.style.top = "0px"; 
+      elem.style.left = "0px"; 
+    } else {
+      pos=pos+1*harder; 
+	  x = x+pos;
+	  harder=1.0001*harder;
+      elem.style.top = pos + "px"; 
+      elem.style.left = pos + "px"; 
+	   
+	  score.innerHTML = "score:"+Math.ceil(x); 
+    }
+  }
+}
+</script>
+
+</body>
+</html>
